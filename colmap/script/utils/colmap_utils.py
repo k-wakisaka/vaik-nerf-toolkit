@@ -49,7 +49,7 @@ from rich.console import Console
 from rich.progress import track
 from typing_extensions import Literal
 
-from utils.colmap_read_model import CameraModel
+from utils.process_data_utils import CameraModel
 from utils.rich_utils import status
 from utils.scripts import run_command
 

@@ -55,5 +55,6 @@ colmap gui --import_path ~/Desktop/data/input_colmap/sparse/0/ \
 ## colmap2poses
 
 ```shell
-
+cd colmap
+python colmap2poses.py --input_colmap_dir ~/Desktop/data/input_colmap
 ```
