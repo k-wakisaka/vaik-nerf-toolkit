@@ -17,12 +17,18 @@ import os
 parser = argparse.ArgumentParser(description='annotation')
 parser.add_argument('--scene_type', type=str, default='real360')
 parser.add_argument('--scene_dir', type=str, default='~/Desktop/data/input_colmap')
+parser.add_argument('--output_dir', type=str, default='~/Desktop/data/output_stg1')
+parser.add_argument('--train_iters_cont', type=int, default=300000)
+parser.add_argument('--max_test_num', type=int, default=10)
+
+
 args = parser.parse_args()
 args.scene_dir = os.path.expanduser(args.scene_dir)
-
+args.output_dir = os.path.expanduser(args.output_dir)
 
 scene_type = args.scene_type
 scene_dir = args.scene_dir
+output_dir= args.output_dir
 
 # synthetic
 # chair drums ficus hotdog lego materials mic ship
@@ -62,8 +68,8 @@ print(jax.local_devices())
 if len(jax.local_devices())!=1:
   print("ERROR: need 8 v100 GPUs")
   1/0
-weights_dir = "weights"
-samples_dir = "samples"
+weights_dir = os.path.join(output_dir, "weights")
+samples_dir = os.path.join(output_dir, "samples")
 if not os.path.exists(weights_dir):
   os.makedirs(weights_dir)
 if not os.path.exists(samples_dir):
@@ -1493,10 +1499,10 @@ t_total = 0.0
 t_last = 0.0
 i_last = step_init
 
-training_iters = 200000
-train_iters_cont = 300000
+training_iters = args.train_iters_cont
+train_iters_cont = args.train_iters_cont
 if scene_type=="real360":
-  training_iters = 300000
+  training_iters = args.train_iters_cont
 
 print("Training")
 for i in tqdm(range(step_init, training_iters + 1)):
@@ -1604,7 +1610,7 @@ gc.collect()
 unreplicated_state = flax.jax_utils.unreplicate(state)
 pickle.dump(unreplicated_state, open(weights_dir+"/s1_"+"tmp_state"+str(i)+".pkl", "wb"))
 vars = unreplicated_state.target
-max_test_num = 10
+max_test_num = args.max_test_num
 render_poses = data['test']['c2w'][:min(max_test_num, len(data['test']['images']))]
 frames = []
 framemasks = []
