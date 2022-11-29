@@ -19,10 +19,10 @@ def main(string, font_size, font_color, output_image_path):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='make string image')
-    parser.add_argument('--string', type=str, default='full')
+    parser.add_argument('--string', type=str, default='32bit')
     parser.add_argument('--font_size', type=int, default=100)
     parser.add_argument('--font_color', type=str, default='coral')
-    parser.add_argument('--output_image_path', type=str, default='./full_coral.png')
+    parser.add_argument('--output_image_path', type=str, default='images/32bit_coral.png')
     args = parser.parse_args()
 
     args.output_image_path = os.path.expanduser(args.output_image_path)
