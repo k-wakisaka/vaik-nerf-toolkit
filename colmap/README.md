@@ -34,7 +34,7 @@ ls |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 ## Prepare colmap
 
 ```shell
-cd colmap
+cd colmap/script
 python process_data.py images \
         --data ~/Desktop/data/input_image \
         --output-dir ~/Desktop/data/input_colmap/ \
@@ -55,6 +55,6 @@ colmap gui --import_path ~/Desktop/data/input_colmap/sparse/0/ \
 ## colmap2poses
 
 ```shell
-cd colmap
+cd colmap/script
 python colmap2poses.py --input_colmap_dir ~/Desktop/data/input_colmap
 ```
