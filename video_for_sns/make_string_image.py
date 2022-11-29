@@ -7,7 +7,7 @@ def main(string, font_size, font_color, output_image_path):
     os.makedirs(os.path.dirname(output_image_path), exist_ok=True)
 
     height = int(font_size * 1.2)
-    width = height * len(string) // 3
+    width = height * len(string) // 2
     image = Image.new("RGB", (width, height), (0, 0, 0))
     draw = ImageDraw.Draw(image)
 

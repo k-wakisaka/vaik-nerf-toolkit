@@ -11,7 +11,7 @@ def main(height, width, color, output_image_path):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='make color bar')
+    parser = argparse.ArgumentParser(description='make string image')
     parser.add_argument('--height', type=int, default=128)
     parser.add_argument('--width', type=int, default=1280)
     parser.add_argument('--color', type=str, default='white')
