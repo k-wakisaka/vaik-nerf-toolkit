@@ -253,7 +253,7 @@ class ProcessInsta360:
         summary_log.append(process_data_utils.downscale_images(image_dir, self.num_downscales, verbose=self.verbose))
 
         # Run Colmap
-        colmap_dir = self.output_dir / "colmap"
+        colmap_dir = self.output_dir
         if not self.skip_colmap:
             colmap_dir.mkdir(parents=True, exist_ok=True)
 

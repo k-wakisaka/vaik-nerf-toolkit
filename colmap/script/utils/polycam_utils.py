@@ -22,7 +22,7 @@ from typing import List
 from rich.console import Console
 
 from utils.process_data_utils import CAMERA_MODELS
-from utils import io
+import io
 
 CONSOLE = Console(width=120)
 

@@ -35,7 +35,7 @@ ls |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 
 ```shell
 cd colmap
-python script/process_data.py images \
+python process_data.py images \
         --data ~/Desktop/data/input_image \
         --output-dir ~/Desktop/data/input_colmap/ \
         --matching-method exhaustive \
@@ -50,4 +50,10 @@ python script/process_data.py images \
 colmap gui --import_path ~/Desktop/data/input_colmap/sparse/0/ \
            --database_path ~/Desktop/data/input_colmap/database.db \
            --image_path ~/Desktop/data/input_colmap/images
+```
+
+## colmap2poses
+
+```shell
+
 ```
