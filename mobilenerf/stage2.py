@@ -15,7 +15,7 @@
 
 import argparse
 import os
-parser = argparse.ArgumentParser(description='stage1')
+parser = argparse.ArgumentParser(description='stage2')
 parser.add_argument('--scene_type', type=str, default='real360')
 parser.add_argument('--scene_dir', type=str, default='~/Desktop/data/input_colmap')
 parser.add_argument('--model_dir', type=str, default='~/Desktop/data/output_stg1')
