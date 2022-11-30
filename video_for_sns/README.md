@@ -20,5 +20,8 @@ python convert_pixel_art.py --input_image_dir_path ~/home/kentaro/Desktop/VideoC
 ## merge widget
 
 ```shell
-
+pythyon merge_imaeg.py
+# header
+# content
+# bottom
 ```
