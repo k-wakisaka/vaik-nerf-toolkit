@@ -2605,5 +2605,5 @@ fout.close()
 pred_frames = np.array(frames,np.float32)
 gt_frames = np.array(data['test']['images'][:min(max_test_num, len(data['test']['images']))],np.float32)
 
-pickle.dump(pred_frames, open("pred_frames.pkl", "wb"))
-pickle.dump(gt_frames, open("gt_frames.pkl", "wb"))
+pickle.dump(pred_frames, open(os.path.join(args.model_dir, "pred_frames.pkl"), "wb"))
+pickle.dump(gt_frames, open(os.path.join(args.model_dir, "gt_frames.pkl"), "wb"))
