@@ -80,6 +80,10 @@ ns-export poisson --load-config /home/kentaro/Github/vaik-nerfstudio-project/out
 
 ![add_mesh](./blender/add_mesh.gif)
 
+## Export
+
+![export](./blender/export.gif)
+
 ## prepare video by UE5
 - [video_for_sns](https://drive.google.com/file/d/16unWZmbYkJuuNoWSi7FNVFZ3HeMjNkS0/view?usp=sharing)
   - HDRIBackdrop
