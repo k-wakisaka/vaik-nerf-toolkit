@@ -61,7 +61,7 @@ python merge_image.py --top_image_path ./images/top_a.png \
                        --header_image_path ./images/header_32bit.png \
                        --input_image_dir_path "${VIDEO_WHITE_OUT_merge_DIR}" \
                        --bottom_background_image_path ./images/black_bar.png  \
-                       --bottom_foreground_image_path ./images/gold_bar.png \
+                       --bottom_foreground_image_path ./images/crimson_bar.png \
                        --output_image_dir_path "${integrate_VIDEO_WHITE_OUT_merge_DIR}"
 
 ####################
