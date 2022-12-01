@@ -10,21 +10,21 @@ def main(text, start_x, height, width, font_size, font_name, font_color, output_
     draw = ImageDraw.Draw(image)
 
     font = ImageFont.truetype(os.path.join(os.path.dirname(__file__), font_name), font_size)
-    draw.text((start_x, 0), text, fill=font_color, font=font)
+    draw.text((start_x, 10), text, fill=font_color, font=font)
 
     image.save(output_image_path)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='make string image')
-    parser.add_argument('--text', type=str, default='A.3人乗り電動自転車')
-    parser.add_argument('--start_x', type=int, default=160)
-    parser.add_argument('--height', type=int, default=128)
+    parser.add_argument('--text', type=str, default='Q.なんでしょう？')
+    parser.add_argument('--start_x', type=int, default=45)
+    parser.add_argument('--height', type=int, default=256)
     parser.add_argument('--width', type=int, default=1280)
-    parser.add_argument('--font_size', type=int, default=100)
+    parser.add_argument('--font_size', type=int, default=150)
     parser.add_argument('--font_name', type=str, default='HannariMincho-Regular.otf')
     parser.add_argument('--font_color', type=str, default='gold')
-    parser.add_argument('--output_image_path', type=str, default='images/top_a.png')
+    parser.add_argument('--output_image_path', type=str, default='images/top_q.png')
     args = parser.parse_args()
 
     args.output_image_path = os.path.expanduser(args.output_image_path)

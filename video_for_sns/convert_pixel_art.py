@@ -43,10 +43,10 @@ def main(input_image_dir_path, resize_sub_pixel, quantize_bit, output_image_dir_
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='convert pixel art')
-    parser.add_argument('--input_image_dir_path', type=str, default='~/Desktop/input_image')
-    parser.add_argument('--resize_sub_pixel', type=int, default=24, choices=[24, 12, 1])
+    parser.add_argument('--input_image_dir_path', type=str, default='/home/kentaro/Desktop/sample/t')
+    parser.add_argument('--resize_sub_pixel', type=int, default=12, choices=[24, 12, 1])
     parser.add_argument('--quantize_bit', type=int, default=8, choices=[1, 8, 32])
-    parser.add_argument('--output_image_dir_path', type=str, default='~/Desktop/output_image')
+    parser.add_argument('--output_image_dir_path', type=str, default='/home/kentaro/Desktop/sample/t_o')
     args = parser.parse_args()
 
     args.input_image_dir_path = os.path.expanduser(args.input_image_dir_path)

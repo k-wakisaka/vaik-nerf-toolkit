@@ -12,14 +12,13 @@ def get_concat_v_cut_center(im1, im2):
 
 def paste(bg, fg, ratio):
     canvas = bg.copy()
-    canvas.paste(fg, (int(bg.width*ratio), 0))
+    canvas.paste(fg, (0-int(bg.width*ratio), 0))
     return canvas
 
 def draw(top_image, header_image, image, bottom_background_image, bottom_foreground_image, index, length):
     process_bar_image = paste(bottom_background_image, bottom_foreground_image, index/length)
-    canvas_image = get_concat_v_cut_center(top_image, header_image)
-    canvas_image = get_concat_v_cut_center(canvas_image, image)
-    canvas_image = get_concat_v_cut_center(canvas_image, bottom_background_image)
+    canvas_image = get_concat_v_cut_center(top_image, image)
+    canvas_image = get_concat_v_cut_center(canvas_image, header_image)
     canvas_image = get_concat_v_cut_center(canvas_image, process_bar_image)
     return canvas_image
 
