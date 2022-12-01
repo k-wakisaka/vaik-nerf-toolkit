@@ -110,6 +110,6 @@ cd video_for_sns
 - comment
 
 ```
-本日は、CGオブジェクトを作成していました！おまけに音声もついています。
-※カメラで撮影して、NeRF（Neural Radiance Fields）により、3D化しています。
+NeRF（Neural Radiance Fields）により、動画からCGオブジェクトを作成しました！
+音もつけてます。
 ```
