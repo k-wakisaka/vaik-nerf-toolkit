@@ -133,4 +133,4 @@ ffmpeg -i ${out_MP4_PATH1} -i ${bit32_MP4_PATH}.concat.mp4  -filter_complex "[0:
 ffmpeg -i ${out_MP4_PATH2} -i ${merge_MP4_PATH}.concat.mp4  -filter_complex "[0:v]setpts=N/FRAME_RATE/TB[0];[1:v]setpts=N/FRAME_RATE/TB[1];[0][0:a][1][1:a]concat=n=2:v=1:a=1" ${out_MP4_PATH3}
 # change size
 resize_MP4_PATH=${OUTPUT_MP4_DIR}/resize_out.mp4
-ffmpeg -i ${out_MP4_PATH3} -vf scale=-1:1280 ${resize_MP4_PATH}
+ffmpeg -i ${out_MP4_PATH3} -vf scale=-2:1024 ${resize_MP4_PATH}
