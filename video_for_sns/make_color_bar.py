@@ -14,8 +14,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='make color bar')
     parser.add_argument('--height', type=int, default=128)
     parser.add_argument('--width', type=int, default=1280)
-    parser.add_argument('--color', type=str, default='crimson')
-    parser.add_argument('--output_image_path', type=str, default='./images/crimson_bar.png')
+    parser.add_argument('--color', type=str, default='gold')
+    parser.add_argument('--output_image_path', type=str, default='./images/gold_bar.png')
     args = parser.parse_args()
 
     args.output_image_path = os.path.expanduser(args.output_image_path)

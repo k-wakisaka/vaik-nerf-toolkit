@@ -84,6 +84,10 @@ ns-export poisson --load-config /home/kentaro/Github/vaik-nerfstudio-project/out
 
 ![export](./blender/export.gif)
 
+-------
+
+# Render
+
 ## prepare video by UE5
 - [video_for_sns](https://drive.google.com/file/d/16unWZmbYkJuuNoWSi7FNVFZ3HeMjNkS0/view?usp=sharing)
   - HDRIBackdrop
@@ -93,3 +97,19 @@ ns-export poisson --load-config /home/kentaro/Github/vaik-nerfstudio-project/out
       - Capture Movie
   - output
     - 1280 x 1280 [pixels]
+
+--------
+
+# Integrate
+
+```shell
+cd video_for_sns
+./crate_video.sh
+```
+
+- comment
+
+```
+本日も、NeRFを使ってCGオブジェクトを作成していました！
+
+```

@@ -19,6 +19,7 @@ def draw(top_image, header_image, image, bottom_background_image, bottom_foregro
     process_bar_image = paste(bottom_background_image, bottom_foreground_image, index/length)
     canvas_image = get_concat_v_cut_center(top_image, header_image)
     canvas_image = get_concat_v_cut_center(canvas_image, image)
+    canvas_image = get_concat_v_cut_center(canvas_image, bottom_background_image)
     canvas_image = get_concat_v_cut_center(canvas_image, process_bar_image)
     return canvas_image
 
@@ -30,7 +31,7 @@ def main(top_image_path, header_image_path, input_image_dir_path, bottom_backgro
     bottom_foreground_image = Image.open(open(bottom_foreground_image_path, 'rb')).convert('RGB')
 
     image_path_list = sorted(
-        [file_path for file_path in glob.glob(os.path.join(input_image_dir_path, '**/*.*'), recursive=True) if
+        [file_path for file_path in glob.glob(os.path.join(input_image_dir_path, '*.*'), recursive=True) if
          re.search('.*\.(png|jpg|bmp)$', file_path)])
 
     for index, image_path in enumerate(image_path_list):
