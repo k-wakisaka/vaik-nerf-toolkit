@@ -1,5 +1,7 @@
 # vaik-nerf-toolkit
 
+-----------
+
 # Capture object
 
 ## Insta360
@@ -7,7 +9,7 @@
 
 -----------
 
-# Prepare mesh
+# Video to Image
 
 ## MP4 to jpg
 
@@ -32,13 +34,18 @@ cd ${IMAGE_DIR}
 find *.png |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 ```
 
-## Prepare colmap
+----------
+
+
+# Prepare colmap
 
 ```shell
 ns-process-data images --data /home/kentaro/Desktop/input_image --output-dir ~/Desktop/data --verbose 
 ```
 
-## Train
+-----------
+
+# Train
 
 ```shell
 ns-train nerfacto --data ~/Desktop/data --pipeline.model.predict-normals True
@@ -51,6 +58,27 @@ ns-export poisson --load-config /home/kentaro/Github/vaik-nerfstudio-project/out
 ```
 
 --------
+
+# Adjust mesh
+- blender
+
+## Rotate and shift
+
+![rotate_and_shift](./blender/rotate_shift.gif)
+
+## Trim
+
+![trim](./blender/trim.gif)
+
+## Delete
+- rough select 「c」button
+- detail select 「shift+click」
+
+![delete](./blender/delete.gif)
+
+## Add mesh
+
+![add_mesh](./blender/add_mesh.gif)
 
 ## prepare video by UE5
 - [video_for_sns](https://drive.google.com/file/d/16unWZmbYkJuuNoWSi7FNVFZ3HeMjNkS0/view?usp=sharing)
