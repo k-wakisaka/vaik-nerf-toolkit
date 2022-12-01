@@ -1,0 +1,1 @@
+for f in *.mp4; do ffmpeg -i "$f" -vf "fps=3,scale=1024:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" "${f}.gif"; done
