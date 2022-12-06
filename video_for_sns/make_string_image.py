@@ -17,8 +17,8 @@ def main(text, start_x, height, width, font_size, font_name, font_color, output_
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='make string image')
-    parser.add_argument('--text', type=str, default='A.3人乗り電動自転車')
-    parser.add_argument('--start_x', type=int, default=30)
+    parser.add_argument('--text', type=str, default='A.ニオイヒバ')
+    parser.add_argument('--start_x', type=int, default=250)
     parser.add_argument('--height', type=int, default=256)
     parser.add_argument('--width', type=int, default=1280)
     parser.add_argument('--font_size', type=int, default=130)

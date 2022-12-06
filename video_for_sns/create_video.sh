@@ -87,7 +87,7 @@ ffmpeg -i ${merge_MP4_PATH} -vf setpts=PTS/1.5 -af atempo=1.5 ${merge_MP4_PATH}.
 
 ####################
 # wav
-INPUT_WAV_PATH=~/Downloads/Saved/bicycle.wav
+INPUT_WAV_PATH=~/Downloads/Saved/sukiyaki.wav
 OUTPUT_1bit_WAV_PATH=~/Downloads/Saved/1bit.wav
 python bit_converter.py --input_wav_path "${INPUT_WAV_PATH}" \
                        --depth_bit 1 \
