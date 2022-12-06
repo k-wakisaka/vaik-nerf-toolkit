@@ -64,25 +64,26 @@ ns-export poisson --load-config /home/kentaro/Github/vaik-nerfstudio-project/out
 
 ## Rotate and shift
 
-![rotate_and_shift](./blender/rotate_shift.gif)
+![rotate_and_shift](doc/rotate_shift.gif)
 
 ## Trim
 
-![trim](./blender/trim.gif)
+![trim](doc/trim.gif)
+
+
+## Export
+
+![export](doc/export.gif)
 
 ## Delete
 - rough select 「c」button
 - detail select 「shift+click」
 
-![delete](./blender/delete.gif)
+![delete](doc/delete.gif)
 
 ## Add mesh
 
-![add_mesh](./blender/add_mesh.gif)
-
-## Export
-
-![export](./blender/export.gif)
+![add_mesh](doc/add_mesh.gif)
 
 -------
 
