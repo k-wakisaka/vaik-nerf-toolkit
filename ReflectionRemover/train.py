@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 
 from data import ref_mat_dataset
-from models import simple, unet3d, unet2d
+from models import simple, unet3d, unet2d, unet2d_tcn
 from callbacks import save_callback
 import tensorflow as tf
 import numpy as np
@@ -28,7 +28,8 @@ def set_seed(seed=777):
 MODEL_DICT = {
     'simple': simple.prepare,
     'unet3d': unet3d.prepare,
-    'unet2d': unet2d.prepare
+    'unet2d': unet2d.prepare,
+    'unet2d_tcn': unet2d_tcn.prepare,
 }
 
 
