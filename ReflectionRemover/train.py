@@ -3,13 +3,20 @@ from datetime import datetime
 import pytz
 
 from data import ref_mat_dataset
-from models import simple, unet3d
+from models import simple, unet3d, unet2d
 from callbacks import save_callback
 import tensorflow as tf
 import numpy as np
 import random
 import os
 
+physical_devices = tf.config.list_physical_devices('GPU')
+if len(physical_devices) > 0:
+    for device in physical_devices:
+        tf.config.experimental.set_memory_growth(device, True)
+        print('{} memory growth: {}'.format(device, tf.config.experimental.get_memory_growth(device)))
+else:
+    print("Not enough GPU hardware devices available")
 
 def set_seed(seed=777):
     tf.random.set_seed(seed)
@@ -20,7 +27,8 @@ def set_seed(seed=777):
 
 MODEL_DICT = {
     'simple': simple.prepare,
-    'unet3d': unet3d.prepare
+    'unet3d': unet3d.prepare,
+    'unet2d': unet2d.prepare
 }
 
 
@@ -60,7 +68,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='train')
     parser.add_argument('--train_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/train')
     parser.add_argument('--valid_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/valid')
-    parser.add_argument('--model_type', type=str, default='unet3d')
+    parser.add_argument('--model_type', type=str, default='unet2d')
     parser.add_argument('--epochs', type=int, default=1000)
     parser.add_argument('--step_size', type=int, default=500)
     parser.add_argument('--batch_size', type=int, default=8)

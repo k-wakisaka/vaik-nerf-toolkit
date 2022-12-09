@@ -53,17 +53,17 @@ class TrainDataset:
             crop_reflection_images = []
             crop_mat_images = []
             video_index = random.choice(list(cls.image_dict.keys()))
-            target_frame_index = random.choice(range(len(cls.image_dict[video_index]['reflection'])))
-            random_frame_start_index = max(0, target_frame_index - cls.random_frame_max_range // 2)
-            random_frame_end_index = min(len(cls.image_dict[video_index]['reflection']) - 1,
-                                         target_frame_index + cls.random_frame_max_range // 2)
+            target_frame_index = random.choice(range(len(cls.image_dict[video_index]['reflection'])-cls.crop_reflection_images_shape[0]))
             crop_start_y = random.randint(0, cls.image_shape[0] - cls.crop_reflection_images_shape[1] - 1)
             crop_start_x = random.randint(0, cls.image_shape[1] - cls.crop_reflection_images_shape[2] - 1)
+            is_reverse = random.uniform(0, 1.0) > 0.5
             for batch_frame_index in range(cls.crop_reflection_images_shape[0]):
-                random_frame_index = random.randint(random_frame_start_index, random_frame_end_index)
+                if is_reverse:
+                    random_frame_index = target_frame_index + cls.crop_reflection_images_shape[0] - batch_frame_index
+                else:
+                    random_frame_index = target_frame_index + batch_frame_index
 
-                reflection_tf_image = tf.image.decode_image(
-                    tf.io.read_file(cls.image_dict[video_index]['reflection'][random_frame_index]), channels=3)
+                reflection_tf_image = tf.image.decode_image(tf.io.read_file(cls.image_dict[video_index]['reflection'][random_frame_index]), channels=3)
                 reflection_tf_image = tf.image.resize(reflection_tf_image, (cls.image_shape[0], cls.image_shape[1]),
                                                       preserve_aspect_ratio=True)
                 crop_reflection_tf_image = reflection_tf_image[
