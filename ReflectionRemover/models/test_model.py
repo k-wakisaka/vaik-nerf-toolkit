@@ -3,7 +3,7 @@ import os.path
 import tensorflow as tf
 import unittest
 
-from model import simple
+from models import simple
 
 
 class TestUtils(unittest.TestCase):
