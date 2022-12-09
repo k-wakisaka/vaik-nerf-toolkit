@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 
 from data import ref_mat_dataset
-from models import simple, unet
+from models import simple, unet3d
 from callbacks import save_callback
 import tensorflow as tf
 import numpy as np
@@ -20,7 +20,7 @@ def set_seed(seed=777):
 
 MODEL_DICT = {
     'simple': simple.prepare,
-    'unet': unet.prepare
+    'unet3d': unet3d.prepare
 }
 
 
@@ -42,7 +42,7 @@ def train(train_input_dir_path, valid_input_dir_path, model_type, epochs, step_s
     valid_dataset = ValidDataset(valid_input_dir_path)
     valid_data = ref_mat_dataset.get_all_data(valid_dataset, test_max_sample)
 
-    model = MODEL_DICT[model_type]((None, None, None, 3))
+    model = MODEL_DICT[model_type]((ref_mat_dataset.TrainDataset.random_frame_max_range, None, None, 3))
 
     save_model_dir_path = os.path.join(output_dir_path,
                                        f'{datetime.now(pytz.timezone("Asia/Tokyo")).strftime("%Y-%m-%d-%H-%M-%S")}')
@@ -60,9 +60,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='train')
     parser.add_argument('--train_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/train')
     parser.add_argument('--valid_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/valid')
-    parser.add_argument('--model_type', type=str, default='simple')
+    parser.add_argument('--model_type', type=str, default='unet3d')
     parser.add_argument('--epochs', type=int, default=1000)
-    parser.add_argument('--step_size', type=int, default=100)
+    parser.add_argument('--step_size', type=int, default=500)
     parser.add_argument('--batch_size', type=int, default=8)
     parser.add_argument('--test_max_sample', type=int, default=8)
     parser.add_argument('--output_dir_path', type=str, default='~/Desktop/output_model')
