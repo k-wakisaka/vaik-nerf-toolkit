@@ -42,21 +42,18 @@ def conv3d_convolution_stride_block(input, num_filters, dilate):
 def tcn_identify_block(input, num_filters):
     x = conv3d_identify_block(input, num_filters, 1)
     x = conv3d_identify_block(x, num_filters, 2)
-    x = conv3d_identify_block(x, num_filters, 3)
     x = conv3d_identify_block(x, num_filters, 4)
     return x
 
 def tcn_convolution_block(input, num_filters):
     x = conv3d_convolution_block(input, num_filters, 1)
     x = conv3d_convolution_block(x, num_filters, 2)
-    x = conv3d_convolution_block(x, num_filters, 3)
     x = conv3d_convolution_block(x, num_filters, 4)
     return x
 
 def tcn_convolution_stride_block(input, num_filters):
     x = conv3d_convolution_block(input, num_filters, 1)
     x = conv3d_convolution_block(x, num_filters, 2)
-    x = conv3d_convolution_block(x, num_filters, 3)
     x = conv3d_convolution_block(x, num_filters, 4)
     p = tf.keras.layers.Conv3D(num_filters, 3, strides=(1, 2, 2), activation="relu", padding="same")(x)
     p = tf.keras.layers.BatchNormalization()(p)
