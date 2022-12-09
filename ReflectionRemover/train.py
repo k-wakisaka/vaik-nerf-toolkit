@@ -50,7 +50,7 @@ def train(train_input_dir_path, valid_input_dir_path, model_type, epochs, step_s
     valid_dataset = ValidDataset(valid_input_dir_path)
     valid_data = ref_mat_dataset.get_all_data(valid_dataset, test_max_sample)
 
-    model = MODEL_DICT[model_type]((ref_mat_dataset.TrainDataset.random_frame_max_range, None, None, 3))
+    model = MODEL_DICT[model_type]((None, None, None, 3))
 
     save_model_dir_path = os.path.join(output_dir_path,
                                        f'{datetime.now(pytz.timezone("Asia/Tokyo")).strftime("%Y-%m-%d-%H-%M-%S")}')

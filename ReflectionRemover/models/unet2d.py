@@ -10,15 +10,13 @@ def conv2d_block(input, num_filters):
     x = tf.keras.layers.Activation("relu")(x)
     return x
 
-def conv3d_block(input, num_filters, dilate=1):
-    x = tf.keras.layers.Conv3D(num_filters, 3, dilation_rate=(dilate, 1, 1), padding="same")(input)
+def conv3d_resblock(input, num_filters, dilate):
+    x = tf.keras.layers.Conv3D(num_filters, 3, dilation_rate=(dilate, 1, 1), activation="relu", padding="same")(input)
     x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.Activation("relu")(x)
-
     x = tf.keras.layers.Conv3D(num_filters, 3, dilation_rate=(dilate, 1, 1), padding="same")(x)
+    x = tf.keras.layers.Add()([input, x])
+    x = tf.keras.layers.ReLU()(x)
     x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.Activation("relu")(x)
-
     return x
 
 def encoder2d_block(input, num_filters):
@@ -40,17 +38,12 @@ def prepare(input_shape, base_dim=8):
     s3, p3 = encoder2d_block(p2, base_dim*4)
     s4, p4 = encoder2d_block(p3, base_dim*8)
 
-    b0 = conv3d_block(p4, base_dim*8)
-    b1 = conv3d_block(b0, base_dim*8, 2)
-    b2 = tf.keras.layers.Add()([b0, b1])
-    b2 = tf.keras.layers.ReLU()(b2)
-    b2 = tf.keras.layers.BatchNormalization()(b2)
-    b3 = conv3d_block(b2, base_dim*8, 3)
-    b4 = tf.keras.layers.Add()([b2, b3])
-    b4 = tf.keras.layers.ReLU()(b4)
-    b4 = tf.keras.layers.BatchNormalization()(b4)
+    b0 = conv3d_resblock(p4, base_dim*8, 1)
+    b1 = conv3d_resblock(b0, base_dim*8, 2)
+    b2 = conv3d_resblock(b1, base_dim*8, 3)
+    b3 = conv3d_resblock(b2, base_dim*8, 4)
 
-    d1 = decoder2d_block(b4, s4, base_dim*8)
+    d1 = decoder2d_block(b3, s4, base_dim*8)
     d2 = decoder2d_block(d1, s3, base_dim*4)
     d3 = decoder2d_block(d2, s2, base_dim*2)
     d4 = decoder2d_block(d3, s1, base_dim)
