@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 
 from data import ref_mat_dataset
-from models import simple
+from models import simple, unet
 from callbacks import save_callback
 import tensorflow as tf
 import numpy as np
@@ -19,7 +19,8 @@ def set_seed(seed=777):
 
 
 MODEL_DICT = {
-    'simple': simple.prepare
+    'simple': simple.prepare,
+    'unet': unet.prepare
 }
 
 
