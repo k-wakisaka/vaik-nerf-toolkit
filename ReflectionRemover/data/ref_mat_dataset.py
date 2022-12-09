@@ -5,10 +5,10 @@ import re
 import random
 
 
-def dump(data, output_dir_path):
+def dump(data, output_dir_path, rescale=255.):
     os.makedirs(output_dir_path, exist_ok=True)
     for index, image in enumerate(data):
-        tf.keras.utils.save_img(os.path.join(output_dir_path, f'{index:04d}.png'), image)
+        tf.keras.utils.save_img(os.path.join(output_dir_path, f'{index:04d}.png'), image*rescale)
 
 
 class TrainDataset:
@@ -17,8 +17,8 @@ class TrainDataset:
     crop_mat_images_shape = (8, 512, 512, 3)
     random_frame_max_range = 8
     output_signature = (
-        tf.TensorSpec(name=f'crop_reflection_images', shape=crop_reflection_images_shape, dtype=tf.uint8),
-        tf.TensorSpec(name=f'crop_mat_images', shape=crop_mat_images_shape, dtype=tf.uint8))
+        tf.TensorSpec(name=f'crop_reflection_images', shape=crop_reflection_images_shape, dtype=tf.float32),
+        tf.TensorSpec(name=f'crop_mat_images', shape=crop_mat_images_shape, dtype=tf.float32))
     image_dict = None
 
     def __new__(cls, input_dir_path):
@@ -65,7 +65,7 @@ class TrainDataset:
                 crop_reflection_tf_image = reflection_tf_image[
                                            crop_start_y:crop_start_y + cls.crop_reflection_images_shape[1],
                                            crop_start_x:crop_start_x + cls.crop_reflection_images_shape[2], :]
-                crop_reflection_images.append(tf.cast(crop_reflection_tf_image, tf.uint8))
+                crop_reflection_images.append(crop_reflection_tf_image/255.)
 
                 mat_tf_image = tf.image.decode_image(
                     tf.io.read_file(cls.image_dict[video_index]['mat'][random_frame_index]), channels=3)
@@ -73,5 +73,5 @@ class TrainDataset:
                                                preserve_aspect_ratio=True)
                 crop_mat_tf_image = mat_tf_image[crop_start_y:crop_start_y + cls.crop_reflection_images_shape[1],
                                     crop_start_x:crop_start_x + cls.crop_reflection_images_shape[2], :]
-                crop_mat_images.append(tf.cast(crop_mat_tf_image, tf.uint8))
+                crop_mat_images.append(crop_mat_tf_image/255.)
             yield tf.stack(crop_reflection_images), tf.stack(crop_mat_images)
