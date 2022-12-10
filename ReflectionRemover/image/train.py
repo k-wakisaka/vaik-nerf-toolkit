@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 
 from data import ref_mat_dataset
-from models import simple, unet3d, unet2d, unet2d_tcn
+from models import unet
 from callbacks import save_callback
 import tensorflow as tf
 import numpy as np
@@ -26,10 +26,7 @@ def set_seed(seed=777):
 
 
 MODEL_DICT = {
-    'simple': simple.prepare,
-    'unet3d': unet3d.prepare,
-    'unet2d': unet2d.prepare,
-    'unet2d_tcn': unet2d_tcn.prepare,
+    'unet': unet.prepare
 }
 
 
@@ -51,14 +48,14 @@ def train(train_input_dir_path, valid_input_dir_path, model_type, epochs, step_s
     valid_dataset = ValidDataset(valid_input_dir_path)
     valid_data = ref_mat_dataset.get_all_data(valid_dataset, test_max_sample)
 
-    model = MODEL_DICT[model_type]((None, None, None, 3))
+    model = MODEL_DICT[model_type]((None, None, 3))
 
     save_model_dir_path = os.path.join(output_dir_path,
                                        f'{datetime.now(pytz.timezone("Asia/Tokyo")).strftime("%Y-%m-%d-%H-%M-%S")}')
     prefix = f'step-{step_size}_batch-{batch_size}'
     callback = save_callback.SaveCallback(save_model_dir_path=save_model_dir_path, prefix=prefix,
                                           train_valid_data=train_valid_data, valid_data=valid_data)
-
+    model.summary()
     model.fit_generator(train_dataset, steps_per_epoch=step_size,
                         epochs=epochs,
                         validation_data=valid_data,
@@ -69,11 +66,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='train')
     parser.add_argument('--train_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/train')
     parser.add_argument('--valid_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/valid')
-    parser.add_argument('--model_type', type=str, default='unet2d_tcn')
+    parser.add_argument('--model_type', type=str, default='unet')
     parser.add_argument('--epochs', type=int, default=1000)
     parser.add_argument('--step_size', type=int, default=1000)
-    parser.add_argument('--batch_size', type=int, default=4)
-    parser.add_argument('--test_max_sample', type=int, default=8)
+    parser.add_argument('--batch_size', type=int, default=8)
+    parser.add_argument('--test_max_sample', type=int, default=64)
     parser.add_argument('--output_dir_path', type=str, default='~/Desktop/output_model')
     args = parser.parse_args()
 

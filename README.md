@@ -47,7 +47,7 @@ find *.png |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 # Prepare colmap
 
 ```shell
-ns-process-data images --data /home/kentaro/Desktop/car/VID_20221207_145002_00_006_image --output-dir /home/kentaro/Desktop/car/VID_20221207_145002_00_006_data --verbose 
+ns-process-video.data images --video.data /home/kentaro/Desktop/car/VID_20221207_145002_00_006_image --output-dir /home/kentaro/Desktop/car/VID_20221207_145002_00_006_data --verbose 
 ```
 
 -----------
@@ -55,7 +55,7 @@ ns-process-data images --data /home/kentaro/Desktop/car/VID_20221207_145002_00_0
 # Train
 
 ```shell
-ns-train nerfacto --data /home/kentaro/Desktop/car/VID_20221207_145002_00_006_data --pipeline.model.predict-normals True
+ns-train nerfacto --video.data /home/kentaro/Desktop/car/VID_20221207_145002_00_006_data --pipeline.model.predict-normals True
 ```
 
 ## Export mesh

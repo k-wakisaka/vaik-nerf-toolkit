@@ -5,7 +5,7 @@ import re
 import random
 from tqdm import tqdm
 
-def dump(data, output_dir_path, suffix='data', rescale=255.):
+def dump(data, output_dir_path, suffix='video.data', rescale=255.):
     if len(data.shape) == 4:
         data = tf.expand_dims(data, axis=0)
     for batch_index in range(data.shape[0]):

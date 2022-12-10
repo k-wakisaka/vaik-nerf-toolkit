@@ -3,7 +3,7 @@ import os.path
 import tensorflow as tf
 import unittest
 
-from models import simple, unet3d, unet2d, unet2d_tcn
+from video.models import simple, unet3d, unet2d, unet2d_tcn
 
 
 class TestUtils(unittest.TestCase):

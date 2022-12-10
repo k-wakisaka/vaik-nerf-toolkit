@@ -1,7 +1,7 @@
 import os
 import tensorflow as tf
 
-from data import ref_mat_dataset
+from video.data import ref_mat_dataset
 
 
 class SaveCallback(tf.keras.callbacks.Callback):
