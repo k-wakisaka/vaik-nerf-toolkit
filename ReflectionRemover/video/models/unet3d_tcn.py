@@ -83,7 +83,7 @@ def decodertcn_block(input, skip_features, num_filters):
 def prepare(input_shape, base_dim=32):
     inputs = tf.keras.layers.Input(input_shape)
 
-    s1, p1 = encoder2d_block(inputs, base_dim)
+    s1, p1 = encodertcn_block(inputs, base_dim)
     s2, p2 = encodertcn_block(p1, base_dim*2)
     s3, p3 = encodertcn_block(p2, base_dim*4)
     s4, p4 = encodertcn_block(p3, base_dim*8)
@@ -93,7 +93,7 @@ def prepare(input_shape, base_dim=32):
     d1 = decodertcn_block(b0, s4, base_dim*8)
     d2 = decodertcn_block(d1, s3, base_dim*4)
     d3 = decodertcn_block(d2, s2, base_dim*2)
-    d4 = decoder2d_block(d3, s1, base_dim)
+    d4 = decodertcn_block(d3, s1, base_dim)
 
     outputs = tf.keras.layers.TimeDistributed(tf.keras.layers.Conv2D(3, 1, padding="same", activation="sigmoid"))(d4)
 
