@@ -6,6 +6,7 @@ import random
 from tqdm import tqdm
 
 def dump(data, output_dir_path, suffix='data', rescale=255.):
+    os.makedirs(output_dir_path, exist_ok=True)
     if len(data.shape) == 3:
         data = tf.expand_dims(data, axis=0)
     for batch_index in range(data.shape[0]):
@@ -48,7 +49,7 @@ class TrainDataset:
     def _generator(cls):
         while True:
             video_index = random.choice(list(cls.image_dict.keys()))
-            target_frame_index = random.choice(range(len(cls.image_dict[video_index]['reflection'])-cls.crop_reflection_images_shape[0]))
+            target_frame_index = random.choice(range(len(cls.image_dict[video_index]['reflection'])))
             crop_start_y = random.randint(0, cls.image_shape[0] - cls.crop_reflection_images_shape[0] - 1)
             crop_start_x = random.randint(0, cls.image_shape[1] - cls.crop_reflection_images_shape[1] - 1)
 
