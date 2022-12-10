@@ -2,41 +2,41 @@ import tensorflow as tf
 
 def conv2d_block(input, num_filters):
     x = tf.keras.layers.TimeDistributed(tf.keras.layers.Conv2D(num_filters, 3, padding="same"))(input)
-    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.GroupNormalization()(x)
     x = tf.keras.layers.Activation("relu")(x)
 
     x = tf.keras.layers.TimeDistributed(tf.keras.layers.Conv2D(num_filters, 3, padding="same"))(x)
-    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.GroupNormalization()(x)
     x = tf.keras.layers.Activation("relu")(x)
     return x
 
 def conv3d_identify_block(input, num_filters, dilate):
     x = tf.keras.layers.Conv3D(num_filters, 3, dilation_rate=(dilate, 1, 1), activation="relu", padding="same")(input)
-    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.GroupNormalization()(x)
     x = tf.keras.layers.Conv3D(num_filters, 3, dilation_rate=(dilate, 1, 1), padding="same")(x)
     x = tf.keras.layers.Add()([input, x])
     x = tf.keras.layers.ReLU()(x)
-    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.GroupNormalization()(x)
     return x
 
 def conv3d_convolution_block(input, num_filters, dilate):
     x = tf.keras.layers.Conv3D(num_filters, 3, dilation_rate=(dilate, 1, 1), activation="relu", padding="same")(input)
-    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.GroupNormalization()(x)
     x = tf.keras.layers.Conv3D(num_filters, 3, dilation_rate=(dilate, 1, 1), padding="same")(x)
     input = tf.keras.layers.Conv3D(num_filters, 1, padding="same")(input)
     x = tf.keras.layers.Add()([input, x])
     x = tf.keras.layers.ReLU()(x)
-    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.GroupNormalization()(x)
     return x
 
 def conv3d_convolution_stride_block(input, num_filters, dilate):
     x = tf.keras.layers.Conv3D(num_filters, 3, dilation_rate=(dilate, 1, 1), strides=(1, 2, 2), activation="relu", padding="same")(input)
-    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.GroupNormalization()(x)
     x = tf.keras.layers.Conv3D(num_filters, 3, dilation_rate=(dilate, 1, 1), padding="same")(x)
     input = tf.keras.layers.Conv3D(num_filters, 1, strides=(1, 2, 2), padding="same")(input)
     x = tf.keras.layers.Add()([input, x])
     x = tf.keras.layers.ReLU()(x)
-    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.GroupNormalization()(x)
     return x
 
 def tcn_identify_block(input, num_filters):
@@ -56,7 +56,7 @@ def tcn_convolution_stride_block(input, num_filters):
     x = conv3d_convolution_block(x, num_filters, 2)
     x = conv3d_convolution_block(x, num_filters, 4)
     p = tf.keras.layers.Conv3D(num_filters, 3, strides=(1, 2, 2), activation="relu", padding="same")(x)
-    p = tf.keras.layers.BatchNormalization()(p)
+    p = tf.keras.layers.GroupNormalization()(p)
     return x, p
 
 def encoder2d_block(input, num_filters):
@@ -80,7 +80,7 @@ def decodertcn_block(input, skip_features, num_filters):
     x = tcn_convolution_block(x, num_filters)
     return x
 
-def prepare(input_shape, base_dim=8):
+def prepare(input_shape, base_dim=32):
     inputs = tf.keras.layers.Input(input_shape)
 
     s1, p1 = encoder2d_block(inputs, base_dim)
