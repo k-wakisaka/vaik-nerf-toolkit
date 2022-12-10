@@ -1,5 +1,5 @@
 import tensorflow as tf
-
+import tensorflow_addons as tfa
 
 def conv_block(input, num_filters):
     x = tf.keras.layers.Conv2D(num_filters, 3, padding="same")(input)
@@ -41,5 +41,6 @@ def prepare(input_shape, base_dim=64):
     outputs = tf.keras.layers.Conv2D(3, 1, padding="same", activation="sigmoid")(d4)
 
     model = tf.keras.Model(inputs, outputs)
-    model.compile(optimizer='adam', loss='binary_crossentropy')
+
+    model.compile(optimizer='adam', loss=tfa.losses.SigmoidFocalCrossEntropy())
     return model
