@@ -4,11 +4,11 @@ import tensorflow_addons as tfa
 def conv_block(input, num_filters):
     x = tf.keras.layers.Conv2D(num_filters, 3, padding="same")(input)
     x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.Activation("swish")(x)
 
     x = tf.keras.layers.Conv2D(num_filters, 3, padding="same")(x)
     x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.Activation("swish")(x)
 
     return x
 
