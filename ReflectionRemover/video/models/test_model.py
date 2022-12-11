@@ -31,7 +31,7 @@ class TestUtils(unittest.TestCase):
     def test_unet3d_tcn(self):
         model = unet3d_tcn.prepare((8, 512, 512, 3))
         model.summary()
-        output_model_path = os.path.expanduser('~/Desktop/unet2d_tcn_model.png')
+        output_model_path = os.path.expanduser('~/Desktop/unet3d_tcn_model.png')
         os.makedirs(os.path.dirname(output_model_path), exist_ok=True)
         tf.keras.utils.plot_model(model, output_model_path, show_shapes=True, show_layer_names=True, show_layer_activations=True)
 
