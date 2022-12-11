@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 
 from data import ref_mat_dataset
-from models import simple, unet3d, unet2d, unet3d_tcn
+from models import simple, unet3d, unet2d, unet3d_tcn, unet3d_deeplabv3plus
 from callbacks import save_callback
 import tensorflow as tf
 import numpy as np
@@ -30,6 +30,7 @@ MODEL_DICT = {
     'unet3d': unet3d.prepare,
     'unet2d': unet2d.prepare,
     'unet3d_tcn': unet3d_tcn.prepare,
+    'unet3d_deeplabv3plus': unet3d_deeplabv3plus.prepare
 }
 
 
@@ -69,7 +70,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='train')
     parser.add_argument('--train_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/train')
     parser.add_argument('--valid_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/valid')
-    parser.add_argument('--model_type', type=str, default='unet3d_tcn')
+    parser.add_argument('--model_type', type=str, default='unet3d_deeplabv3plus')
     parser.add_argument('--epochs', type=int, default=1000)
     parser.add_argument('--step_size', type=int, default=1000)
     parser.add_argument('--batch_size', type=int, default=1)
