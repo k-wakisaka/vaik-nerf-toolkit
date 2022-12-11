@@ -71,7 +71,7 @@ if __name__ == '__main__':
     parser.add_argument('--valid_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/valid')
     parser.add_argument('--model_type', type=str, default='unet3d_tcn')
     parser.add_argument('--epochs', type=int, default=1000)
-    parser.add_argument('--step_size', type=int, default=100)
+    parser.add_argument('--step_size', type=int, default=1000)
     parser.add_argument('--batch_size', type=int, default=1)
     parser.add_argument('--test_max_sample', type=int, default=8)
     parser.add_argument('--output_dir_path', type=str, default='~/Desktop/output_model')
