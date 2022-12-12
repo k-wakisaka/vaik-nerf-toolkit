@@ -46,5 +46,6 @@ class SaveCallback(tf.keras.callbacks.Callback):
     def predict(self, data):
         output_data = []
         for batch_index in range(data.shape[0]):
+            with tf.device('/cpu:0'):
                 output_data.append(tf.squeeze(self.model.predict(tf.expand_dims(data[batch_index], 0)), 0))
         return tf.stack(output_data)

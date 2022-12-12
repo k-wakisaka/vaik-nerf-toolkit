@@ -37,20 +37,22 @@ def conv3d_convolution_stride_block(input, num_filters, dilate):
     return x
 
 def tcn_identify_block(input, num_filters):
-    x1 = conv3d_identify_block(input, num_filters, 1, 1)
-    x2 = conv3d_identify_block(input, num_filters, 1)
-    x3 = conv3d_identify_block(input, num_filters, 2)
-    x4 = conv3d_identify_block(input, num_filters, 4)
+    tmp_num_filters = max(32, num_filters//2)
+    x1 = conv3d_identify_block(input, tmp_num_filters, 1, 1)
+    x2 = conv3d_identify_block(input, tmp_num_filters, 1)
+    x3 = conv3d_identify_block(input, tmp_num_filters, 2)
+    x4 = conv3d_identify_block(input, tmp_num_filters, 4)
     x5 = tf.keras.layers.Concatenate()([x1, x2, x3, x4])
     p = tf.keras.layers.Conv3D(num_filters, 3, activation="swish", padding="same")(x5)
     p = tf.keras.layers.GroupNormalization()(p)
     return p
 
 def tcn_convolution_block(input, num_filters):
-    x1 = conv3d_convolution_block(input, num_filters, 1, 1)
-    x2 = conv3d_convolution_block(input, num_filters, 1)
-    x3 = conv3d_convolution_block(input, num_filters, 2)
-    x4 = conv3d_convolution_block(input, num_filters, 4)
+    tmp_num_filters = max(32, num_filters//2)
+    x1 = conv3d_convolution_block(input, tmp_num_filters, 1, 1)
+    x2 = conv3d_convolution_block(input, tmp_num_filters, 1)
+    x3 = conv3d_convolution_block(input, tmp_num_filters, 2)
+    x4 = conv3d_convolution_block(input, tmp_num_filters, 4)
     x5 = tf.keras.layers.Concatenate()([x1, x2, x3, x4])
     p = tf.keras.layers.Conv3D(num_filters, 3, strides=(1, 2, 2), activation="swish", padding="same")(x5)
     p = tf.keras.layers.GroupNormalization()(p)
