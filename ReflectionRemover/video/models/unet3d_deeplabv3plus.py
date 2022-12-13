@@ -120,5 +120,5 @@ def prepare(input_shape, base_dim=32):
     outputs = tf.keras.layers.TimeDistributed(tf.keras.layers.Conv2D(3, 1, padding="same", activation="sigmoid"))(d4)
 
     model = tf.keras.Model(inputs, outputs)
-    model.compile(optimizer='adam', loss=tfa.losses.SigmoidFocalCrossEntropy())
+    model.compile(optimizer='adam', loss='mse')
     return model
