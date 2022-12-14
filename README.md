@@ -21,9 +21,9 @@
 ## MP4 to jpg
 
 ```shell
-MP4_PATH=/home/kentaro/Desktop/ref_car_data/ref_car.mp4
-OUTPUT_IMAGE_DIR=/home/kentaro/Desktop/ref_car_data/ref_car_image
-OUTPUT_FRAME_NUM=100
+MP4_PATH=/home/kentaro/Desktop/ref_suv_data/ref_suv.mp4
+OUTPUT_IMAGE_DIR=/home/kentaro/Desktop/ref_suv_data/ref_suv_image
+OUTPUT_FRAME_NUM=300
 
 mkdir -p ${OUTPUT_IMAGE_DIR}
 FRAME_NUM=` ffprobe -v error -select_streams v:0 -count_packets -show_entries stream=nb_read_packets -of csv=p=0 ${MP4_PATH} `
@@ -36,7 +36,7 @@ ffmpeg -i ${MP4_PATH} -vf thumbnail=${SPACE_FRAME_NUM},setpts=N/TB -r 1 ${OUTPUT
 - remove except image
 
 ```shell
-IMAGE_DIR=/home/kentaro/Desktop/ref_car_data/ref_car_image
+IMAGE_DIR=/home/kentaro/Desktop/ref_suv_data/ref_suv_image
 cd ${IMAGE_DIR}
 find *.png |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 ```
@@ -47,7 +47,7 @@ find *.png |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 # Prepare colmap
 
 ```shell
-ns-process-data images --data /home/kentaro/Desktop/ref_car_data/ref_car_image --output-dir /home/kentaro/Desktop/ref_car_data/ref_car_data --verbose 
+ns-process-data images --data /home/kentaro/Desktop/ref_suv_mask_data/unet_mask_image/images --output-dir /home/kentaro/Desktop/ref_suv_mask_data/unet_mask_data --sfm-tool hloc --matching-method exhaustive --feature-type superpoint --matcher-type superglue --verbose
 ```
 
 -----------

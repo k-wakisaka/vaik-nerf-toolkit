@@ -30,6 +30,7 @@ def predict(input_model_dir_path, input_image_dir_path, output_image_dir_path, r
     output_image_list = []
     for image_path in tqdm(image_path_list):
         tf_image = tf.image.decode_image(tf.io.read_file(image_path), channels=3)
+        tf_image = tf.image.resize(tf_image, (tf_image.shape[0]//2, tf_image.shape[1]//2))
         tf_image, padding = pad(tf_image)
         tf_image = tf.cast(tf_image, tf.float32) / rescale
         predict_image = tf.squeeze(model.predict(tf.expand_dims(tf_image, 0)), 0)
@@ -64,8 +65,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='predict')
     parser.add_argument('--input_model_dir_path', type=str,
                         default='~/Desktop/output_model/2022-12-10-17-00-29-unet-image-focal/step-1000_batch-8_epoch-97_loss_0.1055_val_loss_0.0788/model')
-    parser.add_argument('--input_image_dir_path', type=str, default='~/Desktop/input_images')
-    parser.add_argument('--output_image_dir_path', type=str, default='~/Desktop/output_images')
+    parser.add_argument('--input_image_dir_path', type=str, default='/home/kentaro/Desktop/ref_suv_mask_data/mask_image')
+    parser.add_argument('--output_image_dir_path', type=str, default='/home/kentaro/Desktop/ref_suv_mask_data/unet_mask_image')
     args = parser.parse_args()
 
     args.input_model_dir_path = os.path.expanduser(args.input_model_dir_path)
