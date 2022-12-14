@@ -21,8 +21,8 @@
 ## MP4 to jpg
 
 ```shell
-MP4_PATH=/home/kentaro/Desktop/car/VID_20221207_145002_00_006.mp4
-OUTPUT_IMAGE_DIR=/home/kentaro/Desktop/car/VID_20221207_145002_00_006_image
+MP4_PATH=/home/kentaro/Desktop/ref_car_data/ref_car.mp4
+OUTPUT_IMAGE_DIR=/home/kentaro/Desktop/ref_car_data/ref_car_image
 OUTPUT_FRAME_NUM=100
 
 mkdir -p ${OUTPUT_IMAGE_DIR}
@@ -36,7 +36,7 @@ ffmpeg -i ${MP4_PATH} -vf thumbnail=2,setpts=N/TB -r 1 ${OUTPUT_IMAGE_DIR}/frame
 - remove except image
 
 ```shell
-IMAGE_DIR=/home/kentaro/Desktop/car/VID_20221207_145002_00_006_image
+IMAGE_DIR=/home/kentaro/Desktop/ref_car_data/ref_car_image
 cd ${IMAGE_DIR}
 find *.png |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 ```
@@ -47,7 +47,7 @@ find *.png |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 # Prepare colmap
 
 ```shell
-ns-process-data images --data /home/kentaro/Desktop/car/VID_20221207_145002_00_006_image --output-dir /home/kentaro/Desktop/car/VID_20221207_145002_00_006_data --verbose 
+ns-process-data images --data /home/kentaro/Desktop/ref_car_data/ref_car_image --output-dir /home/kentaro/Desktop/ref_car_data/ref_car_data --verbose 
 ```
 
 -----------
@@ -55,13 +55,13 @@ ns-process-data images --data /home/kentaro/Desktop/car/VID_20221207_145002_00_0
 # Train
 
 ```shell
-ns-train nerfacto --video.data /home/kentaro/Desktop/car/VID_20221207_145002_00_006_data --pipeline.model.predict-normals True
+ns-train nerfacto --data /home/kentaro/Desktop/ref_car_data/ref_car_data --output-dir /home/kentaro/Desktop/ref_car_data/ref_car_data_out  --pipeline.model.predict-normals True
 ```
 
 ## Export mesh
 ```shell
-ns-export poisson --load-config /home/kentaro/Github/vaik-nerfstudio-project/outputs/-home-kentaro-Desktop-insta_bicycle-hdr_key-key_deep_image_data/nerfacto/2022-12-07_192544/config.yml \
-                  --output-dir /home/kentaro/Desktop/insta_bicycle/hdr_key/key_deep_image_mesh5
+ns-export poisson --load-config /home/kentaro/Desktop/ref_car_data/ref_car_data_out/-home-kentaro-Desktop-ref_car_data-ref_car_data/nerfacto/2022-12-14_094021/config.yml \
+                  --output-dir /home/kentaro/Desktop/ref_car_data/ref_car_data_out/mesh
 ```
 
 --------
