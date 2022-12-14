@@ -8,6 +8,22 @@ import tensorflow_addons as tfa
 from PIL import Image
 
 
+def split(image_path_list, batch_frame=8):
+    def _split(image_path_list, batch_frame=8):
+        for index in range(0, len(image_path_list), batch_frame):
+            yield image_path_list[index:index + batch_frame]
+
+    split_image_path_list = list(_split(image_path_list, batch_frame))
+    split_ex_image_path_list = []
+    for split_index, image_path_list in enumerate(split_image_path_list):
+        if len(image_path_list) < batch_frame and split_index > 0:
+            split_ex_image_path_list.append(
+                [split_image_path_list[split_index - 1][len(image_path_list):], image_path_list])
+        else:
+            split_ex_image_path_list.append([[], image_path_list])
+    return split_ex_image_path_list
+
+
 def pad(tf_image, div=16):
     padding_height = div - tf_image.shape[0] % div
     padding_width = div - tf_image.shape[1] % div
@@ -19,7 +35,32 @@ def crop(tf_image, padding):
     return tf_image[:tf_image.shape[0] - padding[0], :tf_image.shape[1] - padding[1], :]
 
 
-def predict(input_model_dir_path, input_image_dir_path, output_image_dir_path, rescale=255.):
+def inference(model, ex_image_path_list, rescale=255.):
+    image_list = []
+    padding_list = []
+    for image_path in ex_image_path_list[0]:
+        tf_image = tf.image.decode_image(tf.io.read_file(image_path), channels=3)
+        tf_image, padding = pad(tf_image)
+        tf_image = tf.cast(tf_image, tf.float32) / rescale
+        image_list.append(tf_image)
+        padding_list.append(padding)
+    for image_path in ex_image_path_list[1]:
+        tf_image = tf.image.decode_image(tf.io.read_file(image_path), channels=3)
+        tf_image, padding = pad(tf_image)
+        tf_image = tf.cast(tf_image, tf.float32) / rescale
+        image_list.append(tf_image)
+        padding_list.append(padding)
+    tf_input_images = tf.stack(image_list)
+    tf_output_images = tf.squeeze(model.predict(tf.expand_dims(tf_input_images, 0)), 0)
+    output_image_list = []
+    for frame_index in range(tf_output_images.shape[0]):
+        predict_image = crop(tf_output_images[frame_index], padding_list[frame_index])
+        predict_image = tf.cast(tf.clip_by_value(predict_image * rescale, 0., 255.), tf.uint8).numpy()
+        output_image_list.append(predict_image)
+    return output_image_list[len(ex_image_path_list[0]):]
+
+
+def predict(input_model_dir_path, input_image_dir_path, output_image_dir_path, batch_frame=8, rescale=255.):
     os.makedirs(output_image_dir_path, exist_ok=True)
     model = tf.keras.models.load_model(input_model_dir_path)
 
@@ -27,15 +68,12 @@ def predict(input_model_dir_path, input_image_dir_path, output_image_dir_path, r
         [file_path for file_path in glob.glob(os.path.join(input_image_dir_path, '**/*.*'), recursive=True) if
          re.search('.*\.(png|jpg|bmp)$', file_path)])
 
+    split_ex_image_path_list = split(image_path_list, batch_frame)
+
     output_image_list = []
-    for image_path in tqdm(image_path_list):
-        tf_image = tf.image.decode_image(tf.io.read_file(image_path), channels=3)
-        tf_image, padding = pad(tf_image)
-        tf_image = tf.cast(tf_image, tf.float32) / rescale
-        predict_image = tf.squeeze(model.predict(tf.expand_dims(tf_image, 0)), 0)
-        predict_image = crop(predict_image, padding)
-        predict_image = tf.cast(tf.clip_by_value(predict_image * rescale, 0., 255.), tf.uint8).numpy()
-        output_image_list.append(predict_image)
+    for ex_image_path_list in tqdm(split_ex_image_path_list):
+        sub_output_image_list = inference(model, ex_image_path_list)
+        output_image_list.extend(sub_output_image_list)
 
     output_image_dir_path_0 = os.path.join(output_image_dir_path, 'images')
     os.makedirs(output_image_dir_path_0, exist_ok=True)
@@ -63,7 +101,7 @@ def predict(input_model_dir_path, input_image_dir_path, output_image_dir_path, r
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='predict')
     parser.add_argument('--input_model_dir_path', type=str,
-                        default='~/Desktop/output_model/2022-12-10-17-00-29-unet-image-focal/step-1000_batch-8_epoch-97_loss_0.1055_val_loss_0.0788/model')
+                        default='~/Desktop/output_model/2022-12-12-17-50-52-unet3d-mse/step-1000_batch-1_epoch-91_loss_0.0047_val_loss_0.0108/model')
     parser.add_argument('--input_image_dir_path', type=str, default='~/Desktop/input_images')
     parser.add_argument('--output_image_dir_path', type=str, default='~/Desktop/output_images')
     args = parser.parse_args()
