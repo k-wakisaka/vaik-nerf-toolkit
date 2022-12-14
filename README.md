@@ -28,7 +28,7 @@ OUTPUT_FRAME_NUM=100
 mkdir -p ${OUTPUT_IMAGE_DIR}
 FRAME_NUM=` ffprobe -v error -select_streams v:0 -count_packets -show_entries stream=nb_read_packets -of csv=p=0 ${MP4_PATH} `
 SPACE_FRAME_NUM=` expr ${FRAME_NUM} / ${OUTPUT_FRAME_NUM} `
-ffmpeg -i ${MP4_PATH} -vf thumbnail=2,setpts=N/TB -r 1 ${OUTPUT_IMAGE_DIR}/frame_%05d.png
+ffmpeg -i ${MP4_PATH} -vf thumbnail=${SPACE_FRAME_NUM},setpts=N/TB -r 1 ${OUTPUT_IMAGE_DIR}/frame_%05d.png
 ```
 
 ## Remove except image
