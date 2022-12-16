@@ -30,7 +30,7 @@ MODEL_DICT = {
 }
 
 
-def train(train_input_dir_path, valid_input_dir_path, model_type, epochs, step_size, batch_size, test_max_sample,
+def train(train_input_dir_path, valid_input_dir_path, load_model_dir_path, model_type, epochs, step_size, batch_size, test_max_sample,
           output_dir_path):
     # train
     TrainDataset = type(f'TrainDataset', (ref_mat_dataset.TrainDataset,), dict())
@@ -48,7 +48,10 @@ def train(train_input_dir_path, valid_input_dir_path, model_type, epochs, step_s
     valid_dataset = ValidDataset(valid_input_dir_path)
     valid_data = ref_mat_dataset.get_all_data(valid_dataset, test_max_sample)
 
-    model = MODEL_DICT[model_type]((None, None, 3))
+    if load_model_dir_path is not None:
+        model = tf.keras.models.load_model(load_model_dir_path)
+    else:
+        model = MODEL_DICT[model_type]((None, None, 3))
 
     save_model_dir_path = os.path.join(output_dir_path,
                                        f'{datetime.now(pytz.timezone("Asia/Tokyo")).strftime("%Y-%m-%d-%H-%M-%S")}')
@@ -66,6 +69,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='train')
     parser.add_argument('--train_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/train')
     parser.add_argument('--valid_input_dir_path', type=str, default='~/Desktop/ReflectionRemoveData/valid')
+    parser.add_argument('--load_model_dir_path', type=str, default='~/Desktop/output_model/2022-12-16-17-40-54/step-2500_batch-8_epoch-17_loss_0.0006_val_loss_0.0027/model')
     parser.add_argument('--model_type', type=str, default='unet')
     parser.add_argument('--epochs', type=int, default=1000)
     parser.add_argument('--step_size', type=int, default=2500)
@@ -76,8 +80,9 @@ if __name__ == '__main__':
 
     args.train_input_dir_path = os.path.expanduser(args.train_input_dir_path)
     args.valid_input_dir_path = os.path.expanduser(args.valid_input_dir_path)
+    args.load_model_dir_path = os.path.expanduser(args.load_model_dir_path)
     args.output_dir_path = os.path.expanduser(args.output_dir_path)
     os.makedirs(args.output_dir_path, exist_ok=True)
 
-    train(args.train_input_dir_path, args.valid_input_dir_path, args.model_type,
+    train(args.train_input_dir_path, args.valid_input_dir_path,  args.load_model_dir_path, args.model_type,
           args.epochs, args.step_size, args.batch_size, args.test_max_sample, args.output_dir_path)
