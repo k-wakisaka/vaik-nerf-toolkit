@@ -21,8 +21,8 @@
 ## MP4 to jpg
 
 ```shell
-MP4_PATH=/home/kentaro/Desktop/20221215_vehicle/videos/VID_20221215_090416_00_004.mp4
-OUTPUT_IMAGE_DIR=/home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_090416_00_004
+MP4_PATH=/home/kentaro/Desktop/20221215_vehicle/videos/VID_20221215_092229_00_011.mp4
+OUTPUT_IMAGE_DIR=/home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011
 OUTPUT_FRAME_NUM=200
 
 mkdir -p ${OUTPUT_IMAGE_DIR}
@@ -36,7 +36,7 @@ ffmpeg -i ${MP4_PATH} -vf thumbnail=${SPACE_FRAME_NUM},setpts=N/TB -r 1 ${OUTPUT
 - remove except image
 
 ```shell
-IMAGE_DIR=/home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_090416_00_004
+IMAGE_DIR=/home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011
 cd ${IMAGE_DIR}
 find *.png |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 ```
@@ -47,8 +47,25 @@ find *.png |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 # Prepare colmap
 
 ```shell
-ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_090416_00_004 \
-                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_090416_00_004 --verbose
+ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011 \
+                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_092229_00_011 --verbose
+```
+
+```shell
+ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_090500_00_005 \
+                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_090500_00_005 \
+                       --matching-method exhaustive \
+                       --verbose
+```
+
+```shell
+ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011 \
+                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_092229_00_011 \
+                      --sfm-tool hloc \
+                      --matching-method exhaustive \
+                      --feature-type superpoint \
+                      --matcher-type superglue \
+                      --verbose
 ```
 
 -----------
@@ -56,15 +73,15 @@ ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_
 # Train
 
 ```shell
-ns-train nerfacto --data /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_090416_00_004 \
-                  --output-dir /home/kentaro/Desktop/20221215_vehicle/model/VID_20221215_090416_00_004  \
+ns-train nerfacto --data /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_092229_00_011 \
+                  --output-dir /home/kentaro/Desktop/20221215_vehicle/model/VID_20221215_092229_00_011  \
                   --pipeline.model.predict-normals True
 ```
 
 ## Export mesh
 ```shell
-ns-export poisson --load-config /home/kentaro/Desktop/20221215_vehicle/model/VID_20221215_090416_00_004/-home-kentaro-Desktop-20221215_vehicle-data-VID_20221215_090416_00_004/nerfacto/2022-12-15_123034/config.yml \
-                  --output-dir /home/kentaro/Desktop/20221215_vehicle/mesh/VID_20221215_090416_00_004
+ns-export poisson --load-config /home/kentaro/Desktop/20221215_vehicle/model/VID_20221215_092229_00_011/-home-kentaro-Desktop-20221215_vehicle-data-VID_20221215_092229_00_011/nerfacto/2022-12-15_153735/config.yml \
+                  --output-dir /home/kentaro/Desktop/20221215_vehicle/mesh/VID_20221215_092229_00_011
 ```
 
 --------

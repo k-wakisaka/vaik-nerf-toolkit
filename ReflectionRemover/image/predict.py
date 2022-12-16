@@ -30,7 +30,7 @@ def predict(input_model_dir_path, input_image_dir_path, output_image_dir_path, r
     output_image_list = []
     for image_path in tqdm(image_path_list):
         tf_image = tf.image.decode_image(tf.io.read_file(image_path), channels=3)
-        tf_image = tf.image.resize(tf_image, (tf_image.shape[0]//2, tf_image.shape[1]//2))
+        tf_image = tf.image.resize(tf_image, (tf_image.shape[0], tf_image.shape[1]))
         tf_image, padding = pad(tf_image)
         tf_image = tf.cast(tf_image, tf.float32) / rescale
         predict_image = tf.squeeze(model.predict(tf.expand_dims(tf_image, 0)), 0)

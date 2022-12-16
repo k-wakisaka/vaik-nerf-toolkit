@@ -42,5 +42,5 @@ def prepare(input_shape, base_dim=64):
 
     model = tf.keras.Model(inputs, outputs)
 
-    model.compile(optimizer='adam', loss=tfa.losses.SigmoidFocalCrossEntropy())
+    model.compile(optimizer='adam', loss='mse')
     return model
