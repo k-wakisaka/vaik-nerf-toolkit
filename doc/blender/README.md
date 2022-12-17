@@ -23,6 +23,8 @@
     - glab.webm
 
 # Bake
+
+## by Nerf
 ```shell
 /home/kentaro/Desktop/output_model/2022-12-15-16-20-44/step-2500_batch-8_epoch-32_loss_0.0009_val_loss_0.0023/model
 
@@ -30,6 +32,9 @@ python scripts/texture.py --load-config /home/kentaro/Desktop/20221215_vehicle/m
       --input-mesh-filename /home/kentaro/Desktop/blender_ws/car_adjust.fbx \
       --output-dir /home/kentaro/Desktop/blender_ws/car_adjust_mesh
 ```
+
+# by blender
+- bake.webm
 
 # Rotate and shift
 - rotate_and_shift.mp4
