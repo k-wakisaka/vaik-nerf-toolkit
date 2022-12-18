@@ -69,3 +69,9 @@ python scripts/texture.py --load-config /home/kentaro/Desktop/20221215_vehicle/m
   - trim_and_export.webm
 - obj
   - export_obj.webm
+
+----------------
+
+# Set materials
+
+- UE5 blueprint
