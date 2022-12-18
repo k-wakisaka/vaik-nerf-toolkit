@@ -21,8 +21,8 @@
 ## MP4 to jpg
 
 ```shell
-MP4_PATH=/home/kentaro/Desktop/20221215_vehicle/videos/VID_20221215_092229_00_011.mp4
-OUTPUT_IMAGE_DIR=/home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011
+MP4_PATH=/home/kentaro/Desktop/20221215_vehicle/videos/VID_20221215_093333_00_014.mp4
+OUTPUT_IMAGE_DIR=/home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_093333_00_014
 OUTPUT_FRAME_NUM=200
 
 mkdir -p ${OUTPUT_IMAGE_DIR}
@@ -47,20 +47,20 @@ find *.png |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 # Prepare colmap
 
 ```shell
-ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011 \
-                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_092229_00_011 --verbose
+ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_093333_00_014 \
+                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_093333_00_014 --verbose
 ```
 
 ```shell
-ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_090500_00_005 \
-                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_090500_00_005 \
+ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011_unet/images \
+                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_092229_00_011_unet \
                        --matching-method exhaustive \
                        --verbose
 ```
 
 ```shell
-ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011 \
-                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_092229_00_011 \
+ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011_unet/images \
+                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_092229_00_011_unet \
                       --sfm-tool hloc \
                       --matching-method exhaustive \
                       --feature-type superpoint \
@@ -73,15 +73,15 @@ ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_
 # Train
 
 ```shell
-ns-train nerfacto --data /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_092229_00_011 \
-                  --output-dir /home/kentaro/Desktop/20221215_vehicle/model/VID_20221215_092229_00_011  \
+ns-train nerfacto --data /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_093333_00_014 \
+                  --output-dir /home/kentaro/Desktop/20221215_vehicle/model/VID_20221215_093333_00_014  \
                   --pipeline.model.predict-normals True
 ```
 
 ## Export mesh
 ```shell
-ns-export poisson --load-config /home/kentaro/Desktop/20221215_vehicle/model/VID_20221215_092229_00_011/-home-kentaro-Desktop-20221215_vehicle-data-VID_20221215_092229_00_011/nerfacto/2022-12-15_153735/config.yml \
-                  --output-dir /home/kentaro/Desktop/20221215_vehicle/mesh/VID_20221215_092229_00_011
+ns-export poisson --load-config /home/kentaro/Desktop/20221215_vehicle/model/VID_20221215_093333_00_014/-home-kentaro-Desktop-20221215_vehicle-data-VID_20221215_093333_00_014/nerfacto/2022-12-17_140135/config.yml \
+                  --output-dir /home/kentaro/Desktop/20221215_vehicle/mesh/VID_20221215_093333_00_014
 ```
 
 --------
@@ -105,7 +105,7 @@ ns-export poisson --load-config /home/kentaro/Desktop/20221215_vehicle/model/VID
 ## Delete
 - rough select 「c」button
 - detail select 「shift+click」
-
+- repeat setlect 「Select -> Select More/Less -> More -> Shift + R 」
 ![delete](doc/delete.gif)
 
 ## Add mesh

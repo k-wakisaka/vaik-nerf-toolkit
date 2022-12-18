@@ -64,9 +64,9 @@ def predict(input_model_dir_path, input_image_dir_path, output_image_dir_path, r
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='predict')
     parser.add_argument('--input_model_dir_path', type=str,
-                        default='~/Desktop/output_model/2022-12-10-17-00-29-unet-image-focal/step-1000_batch-8_epoch-97_loss_0.1055_val_loss_0.0788/model')
-    parser.add_argument('--input_image_dir_path', type=str, default='/home/kentaro/Desktop/ref_suv_mask_data/mask_image')
-    parser.add_argument('--output_image_dir_path', type=str, default='/home/kentaro/Desktop/ref_suv_mask_data/unet_mask_image')
+                        default='/home/kentaro/Desktop/output_model/2022-12-17-08-30-25/step-2500_batch-8_epoch-4_loss_0.0005_val_loss_0.0029/model')
+    parser.add_argument('--input_image_dir_path', type=str, default='/home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011')
+    parser.add_argument('--output_image_dir_path', type=str, default='/home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011_unet2')
     args = parser.parse_args()
 
     args.input_model_dir_path = os.path.expanduser(args.input_model_dir_path)
