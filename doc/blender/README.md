@@ -1,18 +1,21 @@
 ----------
+# Flow
+- Smooth vertices -> Merge vertices -> Sculpting -> Remove vertices -> Merge vertices
 
 # Delete vertices and Fill hole and texture paint
 ## Edit vertices
+- Smooth vertices
+  - Ctrl + a -> right click -> adjust distance
+- merge vertices
+  - Ctrl + a -> merge vertices -> adjust distance
 - Delete vertices
   - Modeling -> c -> Delete
     - delete_vertices_c.webm
-  - Modeling -> Alt + select vertices -> Delete -> vertices or edge
+  - Modeling -> select vertices -> select -> select more -> Delete -> vertices or edge
     - delete_vertices_alt.webm
 - Fill hole
-  - Modeling -> Shift + select vertices -> f
+  - Modeling -> Shift + select vertices -> f -> Ctrl + T -> right click -> subdivide
     - fill_hole.webm
-- Subdivide
-  - Shift + Alt + select vertices -> Ctrl + T -> Right click -> Subdivide
-    - subdivide.webm
 - Smooth
   - Ctrl + a -> Ctrl + v -> Smooth vertices
 
