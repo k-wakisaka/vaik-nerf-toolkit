@@ -1,6 +1,6 @@
 ----------
 # Flow
-- Smooth vertices -> Merge vertices -> Sculpting -> Remove vertices -> Merge vertices
+- Smooth vertices -> Merge vertices -> Sculpting -> Remove vertices -> Merge vertices -> knife -> Remove vertices -> knife -> split mesh
 
 # Delete vertices and Fill hole and texture paint
 ## Edit vertices
