@@ -4,6 +4,10 @@
 
 # Capture object
 
+## Scaniverse with lidar
+### lidar mode
+
+---------
 ## Insta360
 
 ### Capture
@@ -13,7 +17,6 @@
 - key frame
 - distance 50
 - export
-
 -----------
 
 # Video to Image
@@ -47,8 +50,8 @@ find *.png |awk '{printf "mv \"%s\" frame_%05d.png\n", $0, NR }' |sh
 # Prepare colmap
 
 ```shell
-ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_093333_00_014 \
-                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_093333_00_014 --verbose
+ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/fix_images \
+                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/fix_images --verbose
 ```
 
 ```shell
@@ -60,7 +63,7 @@ ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_
 
 ```shell
 ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_20221215_092229_00_011_unet/images \
-                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_092229_00_011_unet \
+                       --output-dir /home/kentaro/Desktop/20221215_vehicle/data/fix_images \
                       --sfm-tool hloc \
                       --matching-method exhaustive \
                       --feature-type superpoint \
@@ -73,15 +76,15 @@ ns-process-data images --data /home/kentaro/Desktop/20221215_vehicle/images/VID_
 # Train
 
 ```shell
-ns-train nerfacto --data /home/kentaro/Desktop/20221215_vehicle/data/VID_20221215_093333_00_014 \
-                  --output-dir /home/kentaro/Desktop/20221215_vehicle/model/VID_20221215_093333_00_014  \
+ns-train nerfacto --data /home/kentaro/Desktop/20221215_vehicle/data/fix_images \
+                  --output-dir /home/kentaro/Desktop/20221215_vehicle/model/fix_images  \
                   --pipeline.model.predict-normals True
 ```
 
 ## Export mesh
 ```shell
-ns-export poisson --load-config /home/kentaro/Desktop/20221215_vehicle/model/VID_20221215_093333_00_014/-home-kentaro-Desktop-20221215_vehicle-data-VID_20221215_093333_00_014/nerfacto/2022-12-17_140135/config.yml \
-                  --output-dir /home/kentaro/Desktop/20221215_vehicle/mesh/VID_20221215_093333_00_014
+ns-export poisson --load-config /home/kentaro/Desktop/20221215_vehicle/model/fix_images/-home-kentaro-Desktop-20221215_vehicle-data-fix_images/nerfacto/2022-12-20_183523/config.yml \
+                  --output-dir /home/kentaro/Desktop/20221215_vehicle/mesh/fix_images
 ```
 
 --------
