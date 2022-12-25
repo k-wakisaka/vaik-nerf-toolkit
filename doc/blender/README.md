@@ -1,6 +1,10 @@
 ----------
 # Flow
-- Smooth vertices -> Merge vertices -> Sculpting(Grab) -> Remove vertices -> Merge vertices -> knife -> Remove vertices -> Sculpting(Inflate/smooth/Scrape) knife -> split mesh
+- Smooth vertices -> Merge vertices -> Remove vertices -> Boolean intersect -> Export 
+  - Select vertices -> Select more -> Remove vertices
+    - Sculpting(Grab) -> Remove vertices -> Merge vertices -> knife -> Remove vertices -> Sculpting(Inflate/smooth/Scrape) knife -> split mesh
+      - Mirror -> Apply(Transform) -> Export(fbx)
+        - Import -> Material(two side)
 
 # Delete vertices and Fill hole and texture paint
 ## Edit vertices
