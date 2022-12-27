@@ -2,7 +2,7 @@
 # Flow
 - Smooth vertices -> Merge vertices -> Remove vertices -> Boolean intersect -> Export 
   - Select vertices -> Select more -> Remove vertices
-    - Sculpting(Grab) -> Remove vertices -> Merge vertices -> knife -> Remove vertices -> Sculpting(Inflate/smooth/Scrape) knife -> split mesh
+    - Sculpting(Grab) -> Remove vertices -> Merge vertices(a few points) -> knife -> Remove vertices -> Sculpting(Inflate/smooth/Scrape) knife -> split mesh
       - Mirror -> Apply(Transform) -> Export(fbx)
         - Import -> Material(two side)
 
