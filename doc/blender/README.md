@@ -6,6 +6,11 @@
       - Mirror -> Apply(Transform) -> Export(fbx)
         - Import -> Material(two side)
 
+# Select
+- c
+- Ctrl+left click
+- Alt + e + left click
+
 # Delete vertices and Fill hole and texture paint
 ## Edit vertices
 - Smooth vertices
