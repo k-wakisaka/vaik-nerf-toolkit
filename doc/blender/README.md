@@ -8,8 +8,11 @@
 
 # Select
 - c
-- Ctrl+left click
+- Ctrl + left click
 - Alt + e + left click
+
+# Sort
+- s -> x/y/z -> 0 -> Enter
 
 # Delete vertices and Fill hole and texture paint
 ## Edit vertices
