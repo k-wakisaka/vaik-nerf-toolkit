@@ -1,9 +1,15 @@
 ----------
-# Flow
+# Flow_bk
 - Smooth vertices -> Merge vertices -> Remove vertices -> Boolean intersect -> Export -> Boolean diff -> Export -> Import -> Merge vertices
   - Select vertices -> Select more -> Remove vertices
     - Sculpting(Grab) -> Remove vertices -> Merge vertices(a few points) -> Dissolve edge -> knife -> Remove vertices -> Sculpting(Inflate/smooth/Scrape) knife -> split mesh
       - Mirror or Bisect -> Apply(Transform) -> Export(fbx)
+        - Import -> Material(two side)
+----------
+# Flow
+- Smooth vertices -> Merge vertices -> Shift & Rotate -> Remove vertices -> Bisect -> Export
+    - Manual Sculpting(Inflate/smooth/Scrape) by knife -> split mesh
+      - Mirror -> Apply(Transform) -> Export(fbx)
         - Import -> Material(two side)
 
 # Select
