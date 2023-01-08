@@ -3,13 +3,13 @@
 - Smooth vertices -> Merge vertices -> Remove vertices -> Boolean intersect -> Export -> Boolean diff -> Export -> Import -> Merge vertices
   - Select vertices -> Select more -> Remove vertices
     - Sculpting(Grab) -> Remove vertices -> Merge vertices(a few points) -> Dissolve edge -> knife -> Remove vertices -> Sculpting(Inflate/smooth/Scrape) knife -> split mesh
-      - Mirror or Bisect -> Apply(Transform) -> Export(fbx)
+      - Mirror -> Join -> Merge vertices -> fill (glass) -> Add tire -> Normalize Normals-> Apply(Transform) -> Export(fbx)
         - Import -> Material(two side)
 ----------
 # Flow
-- Smooth vertices -> Merge vertices -> Shift & Rotate -> Remove vertices -> Bisect -> Export
-    - Manual Sculpting(Inflate/smooth/Scrape) by knife -> split mesh
-      - Mirror -> Apply(Transform) -> Export(fbx)
+- Smooth vertices -> Merge vertices -> Shift & Rotate -> Remove vertices -> Bisect -> Apply all transform -> Export
+    - Manual Sculpting(Inflate/smooth/Scrape) by knife & s + z + 0 -> split mesh
+      - Mirror -> Attach Item(mirror) -> cApply(Transform) -> Export(fbx)
         - Import -> Material(two side)
 
 # Select
